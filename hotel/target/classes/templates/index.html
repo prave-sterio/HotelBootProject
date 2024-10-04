@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pebbles Beach Resort</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url("https://images.pexels.com/photos/38238/maldives-ile-beach-sun-38238.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+            background-size: cover;
+            background-position: center;
+            color: aliceblue;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .body-background {
+            background-color: black;
+            opacity: 0.5;
+        }
+
+        .logo {
+            font-family: "Playwrite CU", cursive;
+            font-optical-sizing: auto;
+            font-weight: bolder;
+            font-style: normal;
+            font-size: larger;
+            color: rgb(243, 229, 229);
+        }
+
+        .header-right {
+            display: flex;
+            width: 30%;
+            justify-content: space-around;
+        }
+
+        .contact {
+            text-align: right;
+            font-size: 10px;
+            font-weight: 500;
+            font-family: "Playwrite CU", cursive;
+        }
+
+        .login-container button {
+            padding: 7px 20px;
+            font-size: 13px;
+            background-color: rgb(21, 20, 20);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: "Playwrite CU", cursive;
+        }
+
+        .login-container button:hover {
+            background-color: none;
+        }
+
+        .xyz {
+            font-family: "Playwrite CU", cursive;
+            font-optical-sizing: auto;
+            font-weight: bolder;
+            font-style: normal;
+            font-size: 50px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Pebbles Beach Resort</div>
+    <div class="header-right">
+        <div class="contact">
+            Contact: (+91) 9876543210<br>
+            Location: Coimbatore
+        </div>
+        <div class="login-container">
+            <!-- Form to redirect to login -->
+            <form th:action="@{/tologin}" method="post">
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div class="xyz">
+    The Perfect Place for Getaways
+</div>
+
+</body>
+</html>

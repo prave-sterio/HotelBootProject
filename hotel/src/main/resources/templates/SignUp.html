@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f06, #48f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .signup-container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="password"] {
+            width: 90%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 30px;
+            background-color: #f7f7f7;
+            font-size: 14px;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="password"]:focus {
+            border-color: #48f;
+            outline: none;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 30px;
+            background-color: #48f;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #3ac;
+            transform: translateY(-3px);
+        }
+
+        .submit-button:active {
+            background-color: #349;
+            transform: translateY(0);
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #48f;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #3ac;
+        }
+
+        .back-button:active {
+            background-color: #349;
+        }
+    </style>
+</head>
+<body>
+<a href="back" class="back-button">Back</a>
+<div class="signup-container">
+    <h2>Sign Up</h2>
+    <form th:action="@{/Register}" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" minlength="3" maxlength="35" pattern="[a-zA-Z]{3,35}"
+               title="Username must be between 3-35 characters and contain only letters (no numbers)" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[6-9]{1}[0-9]{9}"
+               title="Phone number must start with 6, 7, 8, or 9 and be 10 digits long" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!^&*])[a-zA-Z\d@#$%!^&*]{8,20}"
+               title="Password must be 8-20 characters, contain at least one uppercase letter, one number, and one special character (@#$%!^&*)" required>
+
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required>
+
+        <!-- New fields for security question and answer -->
+        <label for="securityQuestion">Security Question:</label>
+        <input type="text" id="securityQuestion" name="securityQuestion" required>
+
+        <label for="securityAnswer">Security Answer:</label>
+        <input type="text" id="securityAnswer" name="securityAnswer" required>
+
+        <!-- Display error message using Thymeleaf -->
+        <div class="error" th:if="${error}" th:text="${error}"></div>
+
+        <div class="button-container">
+            <button type="submit" class="submit-button" onclick="return validateForm()">Sign Up</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Function to validate that both password fields match
+    function validateForm() {
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirm-password").value;
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>

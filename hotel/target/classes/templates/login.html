@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f06, #48f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #48f;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #3ac;
+        }
+
+        .back-button:active {
+            background-color: #349;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 13px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 30px;
+            background-color: #f7f7f7;
+            font-size: 14px;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #48f;
+            outline: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 30px;
+            background-color: #48f;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #3ac;
+            transform: translateY(-3px);
+        }
+
+        .btn-submit:active {
+            background-color: #349;
+            transform: translateY(0);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #48f;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .links a:hover {
+            color: #3ac;
+        }
+    </style>
+
+</head>
+<body>
+
+<a href="homeB" class="back-button">Back</a>
+
+<div class="container">
+    <h2>Login</h2>
+    <form th:action="@{/login}" method="POST">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <!-- Display error message -->
+        <div th:if="${ErrorMessage}" th:text="${ErrorMessage}" style="color:red"></div>
+
+        <div class="form-group">
+            <button type="submit" class="btn-submit">Login</button>
+        </div>
+
+        <div class="links">
+            <a th:href="@{/forgotPassword}" class="forgot-password">Forgot Password?</a>
+            <a th:href="@{/signup}" class="signup">Sign Up</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

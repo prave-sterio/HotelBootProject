@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Availability</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f06, #48f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .booking-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            width: 30%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .booking-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .button-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #48f;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #3ac;
+        }
+
+        .button:active {
+            background-color: #349;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="date"] {
+            width: 90%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 30px;
+            background-color: #f7f7f7;
+            font-size: 14px;
+            transition: border 0.3s ease;
+        }
+
+        input[type="date"]:focus {
+            border-color: #48f;
+            outline: none;
+        }
+
+        .search-button {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 30px;
+            background-color: #48f;
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #3ac;
+            transform: translateY(-3px);
+        }
+
+        .search-button:active {
+            background-color: #349;
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    <a th:href="@{/checkB}" class="button">Back</a>
+    <a th:href="@{/showHistory}" class="button">Show History</a>
+</div>
+
+<div class="booking-container">
+
+    <h1>Check Room Availability</h1>
+
+    <!-- Error message element -->
+    <p id="errorMessage" class="error-message">Invalid date!</p>
+
+    <form id="bookingForm" th:action="@{/searchBooking}" method="post" onsubmit="return validateDates()">
+        <label for="checkin">Check-in Date:</label>
+        <input type="date" id="checkin" name="checkin" th:attr="min=${#dates.format(today, 'yyyy-MM-dd')}" required />
+
+        <label for="checkout">Check-out Date:</label>
+        <input type="date" id="checkout" name="checkout" th:attr="min=${#dates.format(today, 'yyyy-MM-dd')}" required />
+
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+</div>
+
+<script>
+    function validateDates() {
+        var checkinDate = new Date(document.getElementById('checkin').value);
+        var checkoutDate = new Date(document.getElementById('checkout').value);
+        var errorMessage = document.getElementById('errorMessage');
+
+
+        if (checkoutDate <= checkinDate) {
+
+            errorMessage.style.display = 'block';
+            return false;
+        } else {
+
+            errorMessage.style.display = 'none';
+            return true;
+        }
+    }
+</script>
+
+</body>
+</html>

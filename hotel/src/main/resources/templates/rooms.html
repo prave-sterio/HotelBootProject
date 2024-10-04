@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - Pebbles Beach Resort</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .booking-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px;
+        }
+
+        .room-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Space between rooms */
+        }
+
+        .room {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .room-image {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .room-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .room-details {
+            flex: 2;
+            padding: 15px;
+        }
+
+        .amenities {
+            margin-top: 10px;
+        }
+
+        .amenities h3 {
+            margin: 0 0 10px;
+        }
+
+        .amenities ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .amenities li {
+            margin-bottom: 5px;
+        }
+
+        .room-price {
+            flex: 1;
+            text-align: right;
+            padding: 15px;
+            background-color: #003366;
+            color: white;
+            font-size: 18px;
+        }
+
+        .book-now {
+            display: block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .book-now:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #48f;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #3ac;
+        }
+
+        .back-button:active {
+            background-color: #349;
+        }
+    </style>
+</head>
+<body>
+
+<a th:href="@{/roomback}" class="back-button">Back</a>
+<header>
+    <h1>Pebbles Beach Resort</h1>
+</header>
+
+<div class="booking-container">
+    <div class="room-container">
+
+        <!-- Mini-Suite Room -->
+        <div class="room" th:if="${mini}">
+            <div class="room-image">
+                <img src="https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Mini-Suite Room">
+            </div>
+            <div class="room-details">
+                <h2>Mini-Suite Room</h2>
+                <p>Perfect for a cozy getaway with essential amenities.</p>
+                <div class="amenities">
+                    <h3>Amenities:</h3>
+                    <ul>
+                        <li>King-sized bed</li>
+                        <li>Free Wi-Fi</li>
+                        <li>Flat-screen TV</li>
+                        <li>Mini fridge</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="room-price">
+                <p>Total Price: <span th:text="${miniPrice}"></span></p>
+                <form th:action="@{/BookPage}" method="post">
+                    <input type="hidden" name="roomType" value="mini" />
+                    <input type="submit" value="booknow" class="book-now"/>
+                </form>
+            </div>
+        </div>
+
+        <!-- Standard Suite Room -->
+        <div class="room" th:if="${standard}">
+            <div class="room-image">
+                <img src="https://images.pexels.com/photos/6775268/pexels-photo-6775268.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Standard Suite Room">
+            </div>
+            <div class="room-details">
+                <h2>Standard Suite Room</h2>
+                <p>Spacious room with added comfort and amenities.</p>
+                <div class="amenities">
+                    <h3>Amenities:</h3>
+                    <ul>
+                        <li>Queen-sized bed</li>
+                        <li>Free Wi-Fi</li>
+                        <li>Flat-screen TV</li>
+                        <li>Mini fridge</li>
+                        <li>Work desk</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="room-price">
+                <p>Total Price: <span th:text="${stdPrice}"></span></p>
+                <form th:action="@{/BookPage}" method="post">
+                    <input type="hidden" name="roomType" value="standard" />
+                    <input type="submit" value="booknow" class="book-now"/>
+                </form>
+            </div>
+        </div>
+
+        <!-- Premium Suite Room -->
+        <div class="room" th:if="${premium}">
+            <div class="room-image">
+                <img src="https://images.pexels.com/photos/4825701/pexels-photo-4825701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Premium Suite Room">
+            </div>
+            <div class="room-details">
+                <h2>Premium Suite Room</h2>
+                <p>Luxurious suite with high-end amenities and stunning views.</p>
+                <div class="amenities">
+                    <h3>Amenities:</h3>
+                    <ul>
+                        <li>King-sized bed</li>
+                        <li>Free Wi-Fi</li>
+                        <li>Smart TV</li>
+                        <li>Mini bar</li>
+                        <li>Jacuzzi</li>
+                        <li>Private balcony</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="room-price">
+                <p>Total Price: <span th:text="${prePrice}"></span></p>
+                <form th:action="@{/BookPage}" method="post">
+                    <input type="hidden" name="roomType" value="premium" />
+                    <input type="submit" value="booknow" class="book-now"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

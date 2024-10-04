@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #003366;
+            color: white;
+        }
+
+        td {
+            color: #333;
+        }
+
+        .cancel-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .cancel-button:hover {
+            background-color: #d33;
+        }
+
+        .centered {
+            text-align: center;
+        }
+
+        .action-buttons {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .action-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .logout-button {
+            background-color: #ff4d4d;
+        }
+
+        .back-button {
+            background-color: #003366;
+        }
+
+        .logout-button:hover {
+            background-color: #d33;
+        }
+
+        .back-button:hover {
+            background-color: #002244;
+        }
+    </style>
+</head>
+<body>
+
+<h2 class="centered">Your Bookings</h2>
+
+<div class="action-buttons">
+    <form th:action="@{/logout}" method="POST">
+        <button type="submit" class="logout-button">Logout</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Room Type</th>
+        <th>Check-in Date</th>
+        <th>Check-out Date</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bk : ${bookings}">
+        <td th:text="${bk.username}"></td>
+        <td th:text="${bk.roomType}"></td>
+        <td th:text="${bk.checkInDate}"></td>
+        <td th:text="${bk.checkOutDate}"></td>
+        <td th:text="${bk.active ? 'Active' : 'Cancelled'}"></td>
+        <td>
+            <form th:action="@{/cancelBooking}" method="POST">
+                <input type="hidden" name="bookingId" th:value="${bk.id}" />
+                <button type="submit" class="cancel-button">Cancel</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
